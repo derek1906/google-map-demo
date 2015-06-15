@@ -30,27 +30,8 @@
             background: var(--main-background);
         }
 
-        #locationBased{
-            text-align: center;
-            background: white;
-        }
-        #locationBased .wrapper{
-            width: 100%;
-        }
-        #locationBased .wrapper > google-map{
-            height: 150px;
-            pointer-events: none;
-        }
-        #locationBased .wrapper > .mapText{
-            text-align: left;
-            padding-bottom: 8px;
-            font-size: 24px;
-        }
-
-        #locationBased .pressable{
-            padding: 16px 16px;
-            border-top: 1px solid #EEE;
-            position: relative;
+        google-map{
+            height: 300px;
         }
     </style>
     <template>
@@ -59,16 +40,7 @@
                 <div class="flex title">Title</div>
             </paper-toolbar>
             <div id="content">
-                <paper-material elevation="1" id="locationBased">
-                    <div class="pressable">
-                        <div class="wrapper">
-                            <p>Getting your location...</p><br>
-                            <paper-spinner active></paper-spinner>
-                        </div>
-                        <paper-ripple recenters></paper-ripple>
-                    </div>
-                </paper-material>
-                <google-map style="height: 300px"></google-map>
+                <google-map></google-map>
             </div>
         </paper-scroll-header-panel>
     </template>
@@ -85,9 +57,10 @@
                 return;
             }
 
-            navigator.geolocation.getCurrentPosition(function(position){
-                document.createElement("google-map");
-            });
+            setTimeout(function(){
+                var s = document.createElement("google-map");
+                Polymer.dom(this.$.content).appendChild(s);
+            }.bind(this), 1000);
 
         }
     });
